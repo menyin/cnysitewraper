@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cny.cnysite.modules.order.dao.WsOrderDao">
+    
+	<sql id="wsOrderColumns">
+		a.id AS "id",
+		a.order_sn AS "orderSn",
+		a.order_state AS "orderState",
+		a.js_pay_state AS "jsPayState",
+		a.buys_words AS "buysWords",
+		a.member_id AS "memberId",
+		a.ruid AS "ruid",
+		a.logistics_method AS "logisticsMethod",
+		a.paytime AS "paytime",
+		a.send_time AS "sendTime",
+		a.recevice_time AS "receviceTime",
+		a.payment AS "payment",
+		a.trackingno AS "trackingno",
+		a.express AS "express",
+		a.postage AS "postage",
+		a.coupon_id AS "couponId",
+		a.coupon_money AS "couponMoney",
+		a.price AS "price",
+		a.really_price AS "reallyPrice",
+		a.score AS "score",
+		a.address_id AS "addressId",
+		a.consignee AS "consignee",
+		a.tel AS "tel",
+		a.zip_code AS "zipCode",
+		a.city AS "city",
+		a.address AS "address",
+		a.prepay_id AS "prepayId",
+		a.prepay_date AS "prepayDate",
+		a.return_state AS "returnState",
+		a.return_id AS "returnId",
+		a.return_money AS "returnMoney",
+		a.create_by AS "createBy.id",
+		a.create_date AS "createDate",
+		a.update_by AS "updateBy.id",
+		a.update_date AS "updateDate",
+		a.remarks AS "remarks",
+		a.del_flag AS "delFlag"
+	</sql>
+	
+	<sql id="wsOrderJoins">
+	</sql>
+    
+	<select id="get" resultType="WsOrder">
+		SELECT 
+			<include refid="wsOrderColumns"/>
+		FROM ws_order a
+		<include refid="wsOrderJoins"/>
+		WHERE a.id = #{id}
+	</select>
+	
+	<select id="findList" resultType="WsOrder">
+		SELECT 
+			<include refid="wsOrderColumns"/>
+		FROM ws_order a
+		<include refid="wsOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<select id="findAllList" resultType="WsOrder">
+		SELECT 
+			<include refid="wsOrderColumns"/>
+		FROM ws_order a
+		<include refid="wsOrderJoins"/>
+		<where>
+			a.del_flag = #{DEL_FLAG_NORMAL}
+		</where>		
+		<choose>
+			<when test="page !=null and page.orderBy != null and page.orderBy != ''">
+				ORDER BY ${page.orderBy}
+			</when>
+			<otherwise>
+				ORDER BY a.update_date DESC
+			</otherwise>
+		</choose>
+	</select>
+	
+	<insert id="insert">
+		INSERT INTO ws_order(
+			id,
+			order_sn,
+			order_state,
+			js_pay_state,
+			buys_words,
+			member_id,
+			ruid,
+			logistics_method,
+			paytime,
+			send_time,
+			recevice_time,
+			payment,
+			trackingno,
+			express,
+			postage,
+			coupon_id,
+			coupon_money,
+			price,
+			really_price,
+			score,
+			address_id,
+			consignee,
+			tel,
+			zip_code,
+			city,
+			address,
+			prepay_id,
+			prepay_date,
+			return_state,
+			return_id,
+			return_money,
+			create_by,
+			create_date,
+			update_by,
+			update_date,
+			remarks,
+			del_flag
+		) VALUES (
+			#{id},
+			#{orderSn},
+			#{orderState},
+			#{jsPayState},
+			#{buysWords},
+			#{memberId},
+			#{ruid},
+			#{logisticsMethod},
+			#{paytime},
+			#{sendTime},
+			#{receviceTime},
+			#{payment},
+			#{trackingno},
+			#{express},
+			#{postage},
+			#{couponId},
+			#{couponMoney},
+			#{price},
+			#{reallyPrice},
+			#{score},
+			#{addressId},
+			#{consignee},
+			#{tel},
+			#{zipCode},
+			#{city},
+			#{address},
+			#{prepayId},
+			#{prepayDate},
+			#{returnState},
+			#{returnId},
+			#{returnMoney},
+			#{createBy.id},
+			#{createDate},
+			#{updateBy.id},
+			#{updateDate},
+			#{remarks},
+			#{delFlag}
+		)
+	</insert>
+	
+	<update id="update">
+		UPDATE ws_order SET 	
+			order_sn = #{orderSn},
+			order_state = #{orderState},
+			js_pay_state = #{jsPayState},
+			buys_words = #{buysWords},
+			member_id = #{memberId},
+			ruid = #{ruid},
+			logistics_method = #{logisticsMethod},
+			paytime = #{paytime},
+			send_time = #{sendTime},
+			recevice_time = #{receviceTime},
+			payment = #{payment},
+			trackingno = #{trackingno},
+			express = #{express},
+			postage = #{postage},
+			coupon_id = #{couponId},
+			coupon_money = #{couponMoney},
+			price = #{price},
+			really_price = #{reallyPrice},
+			score = #{score},
+			address_id = #{addressId},
+			consignee = #{consignee},
+			tel = #{tel},
+			zip_code = #{zipCode},
+			city = #{city},
+			address = #{address},
+			prepay_id = #{prepayId},
+			prepay_date = #{prepayDate},
+			return_state = #{returnState},
+			return_id = #{returnId},
+			return_money = #{returnMoney},
+			update_by = #{updateBy.id},
+			update_date = #{updateDate},
+			remarks = #{remarks}
+		WHERE id = #{id}
+	</update>
+	
+	<update id="delete">
+		UPDATE ws_order SET 
+			del_flag = #{DEL_FLAG_DELETE}
+		WHERE id = #{id}
+	</update>
+	
+</mapper>

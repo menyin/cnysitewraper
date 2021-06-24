@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="cnysite:war">
+    <output-path>$PROJECT_DIR$/cnysite/target</output-path>
+    <root id="archive" name="cnysite.war">
+      <element id="artifact" artifact-name="cnysite:war exploded" />
+    </root>
+  </artifact>
+</component>

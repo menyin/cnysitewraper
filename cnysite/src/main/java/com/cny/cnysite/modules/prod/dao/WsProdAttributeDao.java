@@ -1,0 +1,20 @@
+/**
+ * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
+ */
+package com.cny.cnysite.modules.prod.dao;
+
+import com.cny.cnysite.common.persistence.CrudDao;
+import com.cny.cnysite.common.persistence.annotation.MyBatisDao;
+import com.cny.cnysite.modules.prod.entity.WsProdAttribute;
+
+import java.util.List;
+
+/**
+ * 规格属性管理DAO接口
+ * @author cny
+ * @version 2018-07-11
+ */
+@MyBatisDao
+public interface WsProdAttributeDao extends CrudDao<WsProdAttribute> {
+    List<WsProdAttribute> findListAV(WsProdAttribute wsProdAttribute);
+}
